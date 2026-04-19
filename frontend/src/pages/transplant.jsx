@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../api/api";
+import Navbar from "../components/Navbar";
 
 export default function Transplant() {
   const [form, setForm] = useState({
@@ -10,17 +11,24 @@ export default function Transplant() {
   });
 
   const handleSubmit = async () => {
-    await API.post("/transplant", form);
-    alert("Transplant recorded");
+    try {
+      await API.post("/transplant", form);
+      alert("Recorded");
+    } catch {
+      alert("Error");
+    }
   };
 
   return (
-    <div>
-      <h2>Transplant</h2>
-      <input placeholder="Matching ID" onChange={(e)=>setForm({...form, matching_id:e.target.value})}/>
-      <input placeholder="Surgeon ID" onChange={(e)=>setForm({...form, surgeon_id:e.target.value})}/>
-      <input placeholder="Date" onChange={(e)=>setForm({...form, surgery_date:e.target.value})}/>
-      <button onClick={handleSubmit}>Submit</button>
-    </div>
+    <>
+      <Navbar />
+      <div className="container">
+        <h2>Transplant</h2>
+        <input placeholder="Matching ID" onChange={(e)=>setForm({...form, matching_id:e.target.value})}/>
+        <input placeholder="Surgeon ID" onChange={(e)=>setForm({...form, surgeon_id:e.target.value})}/>
+        <input placeholder="Date" onChange={(e)=>setForm({...form, surgery_date:e.target.value})}/>
+        <button onClick={handleSubmit}>Submit</button>
+      </div>
+    </>
   );
 }

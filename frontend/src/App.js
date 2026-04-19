@@ -1,14 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./styles/global.css";
 
-import Login from "./pages/login";
-import Dashboard from "./pages/dashboard";
-import Donor from "./pages/donor";
-import Organ from "./pages/organ";
-import Match from "./pages/match";
-import Transplant from "./pages/transplant";
-import Recipient from "./pages/recipient";
-import Request from "./pages/request";
-import Register from "./pages/register";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Donor from "./pages/Donor";
+import Organ from "./pages/Organ";
+import Match from "./pages/Match";
+import Transplant from "./pages/Transplant";
+import Recipient from "./pages/Recipient";
+import Request from "./pages/Request";
+import Register from "./pages/Register";
+
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
@@ -16,13 +19,34 @@ function App() {
       <Routes>
         <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/donor" element={<Donor />} />
-        <Route path="/organ" element={<Organ />} />
-        <Route path="/match" element={<Match />} />
-        <Route path="/transplant" element={<Transplant />} />
-        <Route path="/recipient" element={<Recipient />} />
-        <Route path="/request" element={<Request />} />
+
+        <Route path="/dashboard" element={
+          <ProtectedRoute><Dashboard /></ProtectedRoute>
+        } />
+
+        <Route path="/donor" element={
+          <ProtectedRoute><Donor /></ProtectedRoute>
+        } />
+
+        <Route path="/organ" element={
+          <ProtectedRoute><Organ /></ProtectedRoute>
+        } />
+
+        <Route path="/match" element={
+          <ProtectedRoute><Match /></ProtectedRoute>
+        } />
+
+        <Route path="/transplant" element={
+          <ProtectedRoute><Transplant /></ProtectedRoute>
+        } />
+
+        <Route path="/recipient" element={
+          <ProtectedRoute><Recipient /></ProtectedRoute>
+        } />
+
+        <Route path="/request" element={
+          <ProtectedRoute><Request /></ProtectedRoute>
+        } />
       </Routes>
     </BrowserRouter>
   );

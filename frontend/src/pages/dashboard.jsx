@@ -1,16 +1,22 @@
-import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
+  let user = {};
 
-      <Link to="/donor">Donors</Link><br />
-      <Link to="/recipient">Recipients</Link><br />
-      <Link to="/organ">Organs</Link><br />
-      <Link to="/request">Requests</Link><br />
-      <Link to="/match">Matching</Link><br />
-      <Link to="/transplant">Transplant</Link><br />
-    </div>
+  try {
+    user = JSON.parse(localStorage.getItem("user")) || {};
+  } catch {
+    user = {};
+  }
+
+  return (
+    <>
+      <Navbar />
+      <div className="container">
+        <h2>Dashboard</h2>
+        <p>Welcome, {user?.username || "Guest"}</p>
+        <p>Role: {user?.role || "N/A"}</p>
+      </div>
+    </>
   );
 }

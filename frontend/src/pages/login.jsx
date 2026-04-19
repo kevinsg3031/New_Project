@@ -1,6 +1,6 @@
 import { useState } from "react";
-import API from "../api/api";
 import { useNavigate } from "react-router-dom";
+import API from "../api/api";
 
 export default function Login() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -9,32 +9,18 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const res = await API.post("/login", form);
-
-      const user = res.data.user;
-
-      // 🔥 store user
-      localStorage.setItem("user", JSON.stringify(user));
-
-      // 🔥 role-based routing
-      if (user.role === "staff") navigate("/dashboard");
-      else if (user.role === "donor") navigate("/donor");
-      else if (user.role === "recipient") navigate("/recipient");
-
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      navigate("/dashboard");
     } catch (err) {
-      alert(err.response?.data?.error || "Login failed");
+      alert("Login failed");
     }
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Login</h2>
-
-      <input placeholder="Username"
-        onChange={(e)=>setForm({...form, username:e.target.value})} />
-
-      <input type="password" placeholder="Password"
-        onChange={(e)=>setForm({...form, password:e.target.value})} />
-
+      <input placeholder="Username" onChange={(e)=>setForm({...form, username:e.target.value})}/>
+      <input type="password" placeholder="Password" onChange={(e)=>setForm({...form, password:e.target.value})}/>
       <button onClick={handleLogin}>Login</button>
     </div>
   );

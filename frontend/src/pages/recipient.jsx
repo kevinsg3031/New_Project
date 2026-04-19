@@ -1,42 +1,32 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 
-export default function Recipient() {
-  const [form, setForm] = useState({
-    name: "",
-    dob: "",
-    blood_group: "",
-    urgency_level: "",
-    hospital_id: 1,
-  });
+export default function Register() {
+  const [form, setForm] = useState({ username:"", password:"", role:"staff" });
+  const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleRegister = async () => {
     try {
-      await API.post("/recipients", form);
-      alert("Recipient added");
-    } catch (err) {
-      console.error(err);
-      alert("Error adding recipient");
+      await API.post("/register", form);
+      alert("Registered");
+      navigate("/login");
+    } catch {
+      alert("Error");
     }
   };
 
   return (
-    <div>
-      <h2>Add Recipient</h2>
-
-      <input placeholder="Name"
-        onChange={(e)=>setForm({...form, name:e.target.value})} />
-
-      <input placeholder="DOB"
-        onChange={(e)=>setForm({...form, dob:e.target.value})} />
-
-      <input placeholder="Blood Group"
-        onChange={(e)=>setForm({...form, blood_group:e.target.value})} />
-
-      <input placeholder="Urgency (Low/Medium/High)"
-        onChange={(e)=>setForm({...form, urgency_level:e.target.value})} />
-
-      <button onClick={handleSubmit}>Submit</button>
+    <div className="container">
+      <h2>Register</h2>
+      <input placeholder="Username" onChange={(e)=>setForm({...form, username:e.target.value})}/>
+      <input type="password" placeholder="Password" onChange={(e)=>setForm({...form, password:e.target.value})}/>
+      <select onChange={(e)=>setForm({...form, role:e.target.value})}>
+        <option value="staff">Staff</option>
+        <option value="donor">Donor</option>
+        <option value="recipient">Recipient</option>
+      </select>
+      <button onClick={handleRegister}>Register</button>
     </div>
   );
 }

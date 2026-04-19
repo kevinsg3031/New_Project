@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    margin: 0;
+  }
+  
+  .container {
+    padding: 20px;
+  }
+  
+  input {
+    display: block;
+    margin: 10px 0;
+    padding: 8px;
+    width: 250px;
+  }
+  
+  button {
+    padding: 8px 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+    background: #3b82f6;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background: #2563eb;
+  }
+  
+  .navbar {
+    background: #1e293b;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+  }

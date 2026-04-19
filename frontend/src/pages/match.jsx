@@ -1,19 +1,27 @@
 import { useState } from "react";
 import API from "../api/api";
+import Navbar from "../components/Navbar";
 
 export default function Match() {
-  const [requestId, setRequestId] = useState("");
+  const [id, setId] = useState("");
 
   const findMatch = async () => {
-    const res = await API.get(`/match/${requestId}`);
-    console.log(res.data);
+    try {
+      const res = await API.get(`/match/${id}`);
+      alert(JSON.stringify(res.data));
+    } catch {
+      alert("Error");
+    }
   };
 
   return (
-    <div>
-      <h2>Find Match</h2>
-      <input placeholder="Request ID" onChange={(e)=>setRequestId(e.target.value)} />
-      <button onClick={findMatch}>Find</button>
-    </div>
+    <>
+      <Navbar />
+      <div className="container">
+        <h2>Match</h2>
+        <input placeholder="Request ID" onChange={(e)=>setId(e.target.value)}/>
+        <button onClick={findMatch}>Find</button>
+      </div>
+    </>
   );
 }
